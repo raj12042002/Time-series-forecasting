@@ -1,0 +1,857 @@
+
+
+# Machine Learning
+
+## 1. Types of Machine Learning
+
+### Supervised Learning
+
+Uses labeled data.
+
+```python
+from sklearn.linear_model import LinearRegression
+
+X = [[1],[2],[3],[4]]
+y = [2,4,6,8]
+
+model = LinearRegression()
+model.fit(X,y)
+
+print(model.predict([[5]]))
+```
+
+---
+
+### Unsupervised Learning
+
+```python
+from sklearn.cluster import KMeans
+
+X = [[1,2],[2,3],[10,11],[11,12]]
+
+model = KMeans(n_clusters=2)
+model.fit(X)
+
+print(model.labels_)
+```
+
+---
+
+### Reinforcement Learning
+
+```python
+import random
+
+actions = ["Left","Right"]
+
+print(random.choice(actions))
+```
+
+---
+
+# Mean Median Mode
+
+```python
+import statistics
+
+data=[10,20,30,40,50]
+
+print("Mean:",statistics.mean(data))
+print("Median:",statistics.median(data))
+```
+
+Mode
+
+```python
+from statistics import mode
+
+data=[1,2,2,3,4]
+
+print(mode(data))
+```
+
+---
+
+# Standard Deviation
+
+```python
+import numpy as np
+
+data=[10,20,30,40,50]
+
+print(np.std(data))
+```
+
+---
+
+# Percentile
+
+```python
+import numpy as np
+
+data=[10,20,30,40,50]
+
+print(np.percentile(data,75))
+```
+
+---
+
+# Data Distribution
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+data=np.random.uniform(0,5,1000)
+
+plt.hist(data)
+plt.show()
+```
+
+---
+
+# Normal Distribution
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+data=np.random.normal(
+50,
+10,
+1000
+)
+
+plt.hist(data)
+plt.show()
+```
+
+---
+
+# Scatter Plot
+
+```python
+import matplotlib.pyplot as plt
+
+x=[1,2,3,4]
+y=[10,20,30,40]
+
+plt.scatter(x,y)
+
+plt.show()
+```
+
+---
+
+# Linear Regression
+
+```python
+from sklearn.linear_model import LinearRegression
+
+X=[[1],[2],[3],[4]]
+y=[10,20,30,40]
+
+model=LinearRegression()
+
+model.fit(X,y)
+
+print(model.predict([[5]]))
+```
+
+---
+
+# Polynomial Regression
+
+```python
+import numpy as np
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+
+X=np.array([1,2,3,4]).reshape(-1,1)
+y=np.array([1,4,9,16])
+
+poly=PolynomialFeatures(2)
+
+X_poly=poly.fit_transform(X)
+
+model=LinearRegression()
+
+model.fit(X_poly,y)
+
+print(model.predict(poly.transform([[5]])))
+```
+
+---
+
+# Multiple Regression
+
+```python
+from sklearn.linear_model import LinearRegression
+
+X=[
+[1,2],
+[2,3],
+[3,4]
+]
+
+y=[10,20,30]
+
+model=LinearRegression()
+
+model.fit(X,y)
+
+print(model.predict([[4,5]]))
+```
+
+---
+
+# Feature Scaling
+
+```python
+from sklearn.preprocessing import StandardScaler
+
+data=[[10],[20],[30]]
+
+scaler=StandardScaler()
+
+print(
+scaler.fit_transform(data)
+)
+```
+
+---
+
+# Train/Test Split
+
+```python
+from sklearn.model_selection import train_test_split
+
+X=[1,2,3,4,5]
+y=[10,20,30,40,50]
+
+X_train,X_test,y_train,y_test=\
+train_test_split(X,y,test_size=0.2)
+```
+
+---
+
+# Decision Tree
+
+```python
+from sklearn.tree import DecisionTreeClassifier
+
+X=[[1],[2],[3]]
+y=[0,1,1]
+
+model=DecisionTreeClassifier()
+
+model.fit(X,y)
+
+print(model.predict([[2]]))
+```
+
+---
+
+# Confusion Matrix
+
+```python
+from sklearn.metrics import confusion_matrix
+
+y_true=[1,0,1,1]
+y_pred=[1,0,0,1]
+
+print(
+confusion_matrix(
+y_true,
+y_pred
+)
+)
+```
+
+---
+
+# Hierarchical Clustering
+
+```python
+from scipy.cluster.hierarchy import linkage
+
+data=[[1],[2],[10],[11]]
+
+print(linkage(data))
+```
+
+---
+
+# Logistic Regression
+
+```python
+from sklearn.linear_model import LogisticRegression
+
+X=[[1],[2],[3],[4]]
+y=[0,0,1,1]
+
+model=LogisticRegression()
+
+model.fit(X,y)
+
+print(model.predict([[2.5]]))
+```
+
+---
+
+# Grid Search
+
+```python
+from sklearn.model_selection import GridSearchCV
+from sklearn.svm import SVC
+
+params={"C":[1,10]}
+
+grid=GridSearchCV(
+SVC(),
+params
+)
+
+grid.fit(
+[[1],[2],[3]],
+[0,1,1]
+)
+
+print(grid.best_params_)
+```
+
+---
+
+# Categorical Data
+
+```python
+import pandas as pd
+
+df=pd.DataFrame({
+"Color":["Red","Blue"]
+})
+
+print(
+pd.get_dummies(df)
+)
+```
+
+---
+
+# K-Means
+
+```python
+from sklearn.cluster import KMeans
+
+X=[[1,2],[2,3],[10,11]]
+
+model=KMeans(n_clusters=2)
+
+model.fit(X)
+
+print(model.labels_)
+```
+
+---
+
+# Bootstrap Aggregation (Bagging)
+
+```python
+from sklearn.ensemble import BaggingClassifier
+from sklearn.tree import DecisionTreeClassifier
+
+model=BaggingClassifier(
+estimator=DecisionTreeClassifier(),
+n_estimators=10
+)
+```
+
+---
+
+# Cross Validation
+
+```python
+from sklearn.model_selection import cross_val_score
+from sklearn.tree import DecisionTreeClassifier
+
+X=[[1],[2],[3],[4]]
+y=[0,0,1,1]
+
+scores=cross_val_score(
+DecisionTreeClassifier(),
+X,
+y,
+cv=2
+)
+
+print(scores)
+```
+
+---
+
+# AUC ROC
+
+```python
+from sklearn.metrics import roc_auc_score
+
+y_true=[0,1,1]
+y_score=[0.1,0.8,0.9]
+
+print(
+roc_auc_score(
+y_true,
+y_score
+)
+)
+```
+
+---
+
+# K Nearest Neighbors
+
+```python
+from sklearn.neighbors import KNeighborsClassifier
+
+X=[[1],[2],[3],[4]]
+y=[0,0,1,1]
+
+model=KNeighborsClassifier(
+n_neighbors=3
+)
+
+model.fit(X,y)
+
+print(model.predict([[2.5]]))
+```
+
+---
+
+# Python DSA
+
+# Lists
+
+```python
+arr=[10,20,30]
+
+print(arr)
+```
+
+---
+
+# Stack (LIFO)
+
+```python
+stack=[]
+
+stack.append(10)
+stack.append(20)
+
+print(stack.pop())
+```
+
+---
+
+# Queue (FIFO)
+
+```python
+from collections import deque
+
+q=deque()
+
+q.append(10)
+q.append(20)
+
+print(q.popleft())
+```
+
+---
+
+# Linked List
+
+```python
+class Node:
+
+    def __init__(self,data):
+        self.data=data
+        self.next=None
+
+head=Node(10)
+
+head.next=Node(20)
+
+print(head.data)
+```
+
+---
+
+# Hash Table
+
+```python
+hash_table={
+"Name":"Rahul",
+"Age":25
+}
+
+print(
+hash_table["Name"]
+)
+```
+
+---
+
+# Trees
+
+```python
+class TreeNode:
+
+    def __init__(self,val):
+        self.val=val
+        self.left=None
+        self.right=None
+```
+
+---
+
+# Binary Tree
+
+```python
+root=TreeNode(10)
+
+root.left=TreeNode(5)
+
+root.right=TreeNode(15)
+```
+
+---
+
+# Binary Search Tree
+
+```python
+class BST:
+
+    def insert(
+    self,
+    root,
+    val
+    ):
+
+        if root is None:
+            return TreeNode(val)
+
+        if val<root.val:
+            root.left=self.insert(
+            root.left,
+            val
+            )
+
+        else:
+            root.right=self.insert(
+            root.right,
+            val
+            )
+
+        return root
+```
+
+---
+
+# AVL Tree (Basic Node)
+
+```python
+class AVLNode:
+
+    def __init__(self,key):
+
+        self.key=key
+
+        self.left=None
+
+        self.right=None
+
+        self.height=1
+```
+
+---
+
+# Graph
+
+```python
+graph={
+"A":["B","C"],
+"B":["D"],
+"C":[]
+}
+
+print(graph["A"])
+```
+
+---
+
+# Linear Search
+
+```python
+arr=[10,20,30]
+
+target=20
+
+for i in arr:
+    if i==target:
+        print("Found")
+```
+
+---
+
+# Binary Search
+
+```python
+arr=[10,20,30,40]
+
+low=0
+high=len(arr)-1
+
+target=30
+
+while low<=high:
+
+    mid=(low+high)//2
+
+    if arr[mid]==target:
+        print("Found")
+        break
+
+    elif arr[mid]<target:
+        low=mid+1
+
+    else:
+        high=mid-1
+```
+
+---
+
+# Bubble Sort
+
+```python
+arr=[5,2,4,1]
+
+for i in range(len(arr)):
+    for j in range(
+    0,
+    len(arr)-i-1
+    ):
+
+        if arr[j]>arr[j+1]:
+
+            arr[j],arr[j+1]=\
+            arr[j+1],arr[j]
+
+print(arr)
+```
+
+---
+
+# Selection Sort
+
+```python
+arr=[5,2,4,1]
+
+for i in range(len(arr)):
+
+    min_idx=i
+
+    for j in range(
+    i+1,
+    len(arr)
+    ):
+
+        if arr[j]<arr[min_idx]:
+            min_idx=j
+
+    arr[i],arr[min_idx]=\
+    arr[min_idx],arr[i]
+
+print(arr)
+```
+
+---
+
+# Insertion Sort
+
+```python
+arr=[5,2,4,1]
+
+for i in range(1,len(arr)):
+
+    key=arr[i]
+
+    j=i-1
+
+    while j>=0 and key<arr[j]:
+
+        arr[j+1]=arr[j]
+
+        j-=1
+
+    arr[j+1]=key
+
+print(arr)
+```
+
+---
+
+# Quick Sort
+
+```python
+def quick_sort(arr):
+
+    if len(arr)<=1:
+        return arr
+
+    pivot=arr[len(arr)//2]
+
+    left=[x for x in arr if x<pivot]
+
+    middle=[x for x in arr if x==pivot]
+
+    right=[x for x in arr if x>pivot]
+
+    return quick_sort(left)+\
+           middle+\
+           quick_sort(right)
+
+print(
+quick_sort(
+[5,2,8,1]
+)
+)
+```
+
+---
+
+# Counting Sort
+
+```python
+def counting_sort(arr):
+
+    max_val=max(arr)
+
+    count=[0]*(max_val+1)
+
+    for num in arr:
+        count[num]+=1
+
+    output=[]
+
+    for i,c in enumerate(count):
+        output.extend([i]*c)
+
+    return output
+
+print(
+counting_sort(
+[4,2,2,8]
+)
+)
+```
+
+---
+
+# Radix Sort
+
+```python
+def counting(arr,exp):
+
+    n=len(arr)
+
+    output=[0]*n
+
+    count=[0]*10
+
+    for i in arr:
+        index=i//exp
+        count[index%10]+=1
+
+    for i in range(1,10):
+        count[i]+=count[i-1]
+
+    i=n-1
+
+    while i>=0:
+        index=arr[i]//exp
+        output[count[index%10]-1]=arr[i]
+        count[index%10]-=1
+        i-=1
+
+    for i in range(n):
+        arr[i]=output[i]
+
+def radix_sort(arr):
+
+    max1=max(arr)
+
+    exp=1
+
+    while max1//exp>0:
+        counting(arr,exp)
+        exp*=10
+
+arr=[170,45,75,90]
+
+radix_sort(arr)
+
+print(arr)
+```
+
+---
+
+# Merge Sort
+
+```python
+def merge_sort(arr):
+
+    if len(arr)>1:
+
+        mid=len(arr)//2
+
+        left=arr[:mid]
+
+        right=arr[mid:]
+
+        merge_sort(left)
+        merge_sort(right)
+
+        i=j=k=0
+
+        while i<len(left) and j<len(right):
+
+            if left[i]<right[j]:
+
+                arr[k]=left[i]
+                i+=1
+
+            else:
+
+                arr[k]=right[j]
+                j+=1
+
+            k+=1
+
+        while i<len(left):
+            arr[k]=left[i]
+            i+=1
+            k+=1
+
+        while j<len(right):
+            arr[k]=right[j]
+            j+=1
+            k+=1
+
+arr=[5,2,4,1]
+
+merge_sort(arr)
+
+print(arr)
+```
+ Machine Learning and Python DSA // Data Science, Python Developer, Machine Learning Engineer, and technical interviews.
+
+
+
